@@ -3,54 +3,43 @@
 echo "🚀 Setting up ShipMe development environment..."
 echo ""
 
-# Check if project configuration exists
-if [ ! -f ".shipme/project.json" ]; then
-  echo "⚠️  No project configuration found at .shipme/project.json"
-  echo "This file should have been created by shipme.dev during repository creation."
-  echo ""
-fi
-
-# Install project dependencies (if package.json exists)
-if [ -f "package.json" ]; then
-  echo "📦 Installing project dependencies..."
-  npm install
-  echo "✅ Project dependencies installed"
-  echo ""
-fi
+# Install dependencies
+echo "📦 Installing project dependencies..."
+npm install
 
 # Build MCP servers
 echo "🔧 Building MCP servers..."
 cd mcp-servers && npm install && npm run build && cd ..
-echo "✅ MCP servers built successfully"
-echo ""
 
 # Install global tools
 echo "🛠️  Installing global tools..."
-npm install -g netlify-cli supabase 2>/dev/null || echo "  (Some tools may already be installed)"
-echo ""
+npm install -g netlify-cli supabase
 
-echo "✅ Environment setup complete!"
+# Verify installations
 echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✓ Node.js: $(node --version)"
+echo "✓ npm: $(npm --version)"
+echo "✓ GitHub CLI: $(gh --version | head -n 1)"
+echo "✓ Netlify CLI: $(netlify --version)"
+echo "✓ Supabase CLI: $(supabase --version)"
+
 echo ""
+echo "✅ Environment ready!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "📋 Next Steps:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "1. 🔐 Authenticate your services:"
-echo "   • GitHub: gh auth login"
-echo "   • Provide Supabase & Netlify tokens as Codespace secrets"
+echo "1. 🔐 Set up credentials (required for provisioning):"
+echo "   Run: bash .devcontainer/setup-credentials.sh"
 echo ""
-echo "2. 🤖 Start provisioning:"
-echo "   Type: @claude Read my project configuration and start provisioning"
+echo "2. 📄 Your project configuration: .shipme/project.json"
 echo ""
-echo "3. 📖 Or get help:"
+echo "3. 🤖 Start provisioning with Claude Code:"
 echo "   Type: @claude help"
 echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-
-# Display project info if available
-if [ -f ".shipme/project.json" ]; then
-  echo "📄 Project Configuration:"
-  cat .shipme/project.json | head -20
-  echo ""
-fi
+echo "💡 Tip: You can configure credentials later when you're ready"
+echo "    to provision infrastructure. Just run the setup wizard!"
+echo ""
