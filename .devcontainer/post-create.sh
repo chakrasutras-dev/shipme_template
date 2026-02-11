@@ -50,6 +50,18 @@ echo "[4/5] Installing Claude Code CLI..."
 npm install -g @anthropic-ai/claude-code 2>&1 || echo "  Warning: claude-code install failed"
 echo "  Done."
 
+# Pre-configure Claude Code to skip first-time onboarding (theme picker, login screen)
+# This must happen AFTER Claude CLI install but BEFORE auto-launch-claude.sh runs
+mkdir -p "$HOME/.claude"
+cat > "$HOME/.claude.json" << 'CEOF'
+{
+  "hasCompletedOnboarding": true,
+  "hasTrustDialogAccepted": true,
+  "hasTrustDialogHooksAccepted": true
+}
+CEOF
+echo "  Claude Code onboarding pre-configured."
+
 # Step 6: Configure Anthropic API key via provisioning token
 echo "[5/5] Configuring Claude Code..."
 
