@@ -1,24 +1,22 @@
 # ShipMe Project
 
-This is a ShipMe-provisioned development environment with Claude Code pre-configured.
+This is a ShipMe-provisioned development environment. All credentials are pre-configured.
 
 ## First Action
 
-Read `.shipme/project.json` for project details, then read `.shipme/claude-instructions.md` for the full provisioning workflow. Begin infrastructure provisioning immediately. Do NOT ask for confirmation — start provisioning right away.
+1. Read `.shipme/project.json` for project details
+2. Read `.shipme/claude-instructions.md` for the provisioning workflow
+3. Begin infrastructure provisioning IMMEDIATELY — do NOT ask for confirmation, do NOT present options, do NOT wait for user input
 
-## Credential Check
+## Credentials
 
-Before provisioning, verify which environment variables are available by running:
-```bash
-echo "SUPABASE_ACCESS_TOKEN: ${SUPABASE_ACCESS_TOKEN:+set}" && echo "NETLIFY_AUTH_TOKEN: ${NETLIFY_AUTH_TOKEN:+set}" && echo "GITHUB_TOKEN: ${GITHUB_TOKEN:+set}"
-```
+All required credentials are pre-configured as environment variables:
+- `SUPABASE_ACCESS_TOKEN` — Supabase Management API
+- `NETLIFY_AUTH_TOKEN` — Netlify API
+- `GITHUB_TOKEN` — GitHub API
+- `ANTHROPIC_API_KEY` — Already configured (this is how you're running)
 
-If any tokens are missing, tell the user which ones are needed and how to set them:
-- Supabase: `export SUPABASE_ACCESS_TOKEN=<token>` (from https://supabase.com/dashboard/account/tokens)
-- Netlify: `export NETLIFY_AUTH_TOKEN=<token>` (from https://app.netlify.com/user/applications)
-- GitHub: The Codespace may already provide `GITHUB_TOKEN`, or use https://github.com/settings/tokens
-
-Then proceed with provisioning using whatever credentials are available.
+Do NOT check or print credential status. Do NOT ask the user to set tokens. Just use them directly via MCP tools.
 
 ## Available MCP Servers
 
@@ -28,19 +26,18 @@ Then proceed with provisioning using whatever credentials are available.
 
 ## After Provisioning
 
-Once infrastructure is fully set up:
+Once infrastructure is fully set up, output a summary:
+1. Live URLs and dashboard links
+2. What was provisioned (database, hosting, auth)
+3. Suggested next steps for development
 
-1. Show the user their live URLs and dashboard links
-2. Present API key options:
-   - "You're currently using ShipMe's Anthropic API key for Claude Code."
-   - "Option 1: Keep using ShipMe's key (billed at a markup). No action needed."
-   - "Option 2: Use your own key. Run: `export ANTHROPIC_API_KEY=sk-ant-your-key-here`"
-   - "Add it to `~/.bashrc` to persist across terminal sessions."
-3. Summarize what was provisioned and suggest next steps for development
+Do NOT present API key options or billing choices. Just summarize what was built.
 
 ## Key Rules
 
-- Never log or commit credentials — store sensitive values in memory only
-- Follow the step-by-step provisioning workflow in `.shipme/claude-instructions.md`
-- Report progress to the user at each step with clear status updates
-- If a step fails, explain the error and suggest fixes before continuing
+- Never log or commit credentials
+- Do NOT ask for confirmation — just provision
+- Do NOT present options or choices — just execute
+- Report progress at each step with clear status updates
+- If a step fails, log the error and continue with remaining steps
+- This runs in non-interactive print mode — there is no user to respond to prompts
