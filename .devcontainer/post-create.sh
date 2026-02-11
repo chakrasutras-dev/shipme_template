@@ -78,7 +78,10 @@ elif [ -f ".shipme/project.json" ]; then
     " "$RESPONSE" 2>/dev/null)
 
     if [ -n "$API_KEY" ]; then
-      # Persist the key for all terminal sessions
+      # Write to dedicated env file (sourced by auto-launch-claude.sh)
+      echo "export ANTHROPIC_API_KEY=$API_KEY" > ~/.shipme-env
+
+      # Also persist for all terminal sessions
       echo "export ANTHROPIC_API_KEY=$API_KEY" >> ~/.bashrc
       echo "export ANTHROPIC_API_KEY=$API_KEY" >> ~/.profile
       export ANTHROPIC_API_KEY=$API_KEY
@@ -111,15 +114,8 @@ echo "======================================================"
 echo "  Setup Complete!"
 echo "======================================================"
 echo ""
-echo "  To start provisioning your infrastructure, run:"
-echo ""
-echo "    claude"
-echo ""
-echo "  Claude Code will read your project config and begin"
-echo "  setting up Supabase, Netlify, and GitHub automatically."
-echo ""
-echo "  To use your own Anthropic API key instead of ShipMe's:"
-echo "    export ANTHROPIC_API_KEY=sk-ant-your-key-here"
+echo "  Claude Code will auto-launch when the terminal opens"
+echo "  and begin infrastructure provisioning automatically."
 echo ""
 echo "======================================================"
 echo ""
