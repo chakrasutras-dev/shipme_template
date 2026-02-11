@@ -68,8 +68,17 @@ echo "  begin infrastructure provisioning automatically."
 echo "======================================================"
 echo ""
 
-# Launch Claude Code interactively with auto-provisioning prompt
-# exec replaces this shell with Claude — the terminal IS Claude
+# Launch Claude Code in print mode for auto-provisioning
+# -p: print mode — processes prompt, runs tools, outputs results, exits
 # --dangerously-skip-permissions: allows MCP tools + Bash without prompting
-exec claude --dangerously-skip-permissions \
+# Note: interactive mode triggers first-time onboarding; -p skips it
+claude -p --dangerously-skip-permissions \
   "Read .shipme/project.json and .shipme/claude-instructions.md, then begin infrastructure provisioning. Start immediately without asking for confirmation."
+
+echo ""
+echo "======================================================"
+echo "  ShipMe: Provisioning Complete"
+echo "======================================================"
+echo "  Run 'claude' to start Claude Code interactively."
+echo "======================================================"
+echo ""
